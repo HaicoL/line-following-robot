@@ -1,0 +1,820 @@
+[
+    {
+        "id": "2de1d8a11aa56cb9",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c7659bdac061f158",
+        "type": "mqtt in",
+        "z": "2de1d8a11aa56cb9",
+        "name": "Battery",
+        "topic": "robot/battery",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "aabbccddeeff0011",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "cb12571f12eae948",
+                "eec6fbe79a2db0ec",
+                "9be37bd2f5112a54"
+            ]
+        ]
+    },
+    {
+        "id": "e813235d40df877d",
+        "type": "ui_gauge",
+        "z": "2de1d8a11aa56cb9",
+        "name": "Batterij %",
+        "group": "dashboard_grp",
+        "order": 5,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Batterij",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 100,
+        "colors": [
+            "#ca3838",
+            "#e6e600",
+            "#00b500"
+        ],
+        "seg1": "10",
+        "seg2": "30",
+        "diff": false,
+        "className": "",
+        "x": 800,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e37fa6a49c6673d0",
+        "type": "ui_chart",
+        "z": "2de1d8a11aa56cb9",
+        "name": "Spanning",
+        "group": "dashboard_grp",
+        "order": 14,
+        "width": 6,
+        "height": 4,
+        "label": "Spanning (V)",
+        "chartType": "bar",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "6",
+        "ymax": "9",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": true,
+        "useUTC": false,
+        "colors": [
+            "#00baff",
+            "#00baff",
+            "#00baff",
+            "#00baff",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 800,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cb12571f12eae948",
+        "type": "function",
+        "z": "2de1d8a11aa56cb9",
+        "name": "Check batterij",
+        "func": "if (msg.payload.pct < 10) {\n    return { payload: \"🔴 Batterij leeg: \" + msg.payload.pct + \"%\" };\n} if (msg.payload.pct < 30) {\n    return { payload: \"⚠️ Batterij bijna leeg: \" + msg.payload.pct + \"%\" };\n} else {\n    return { payload: \"✅ Batterij ok\"};\n}",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 380,
+        "wires": [
+            [
+                "8df135b9cad4b07a"
+            ]
+        ]
+    },
+    {
+        "id": "8df135b9cad4b07a",
+        "type": "ui_text",
+        "z": "2de1d8a11aa56cb9",
+        "group": "dashboard_grp",
+        "order": 34,
+        "width": 6,
+        "height": 2,
+        "name": "Waarschuwing batterij",
+        "label": "Waarschuwing Batterij",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 840,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "93e6e04c0ea7f639",
+        "type": "mqtt in",
+        "z": "2de1d8a11aa56cb9",
+        "name": "Status",
+        "topic": "robot/status",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "aabbccddeeff0011",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 410,
+        "y": 540,
+        "wires": [
+            [
+                "56bf28947b09a036",
+                "d633ef035db920b0"
+            ]
+        ]
+    },
+    {
+        "id": "56bf28947b09a036",
+        "type": "ui_text",
+        "z": "2de1d8a11aa56cb9",
+        "group": "dashboard_grp",
+        "order": 29,
+        "width": 6,
+        "height": 2,
+        "name": "Status tekst",
+        "label": "Status",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 610,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "d633ef035db920b0",
+        "type": "function",
+        "z": "2de1d8a11aa56cb9",
+        "name": "Reset timer",
+        "func": "flow.set(\"lastUpdate\", Date.now());\nreturn null;",
+        "outputs": 0,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "7f6ac74e78435e72",
+        "type": "inject",
+        "z": "2de1d8a11aa56cb9",
+        "name": "Elke seconde check",
+        "props": [],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 360,
+        "y": 680,
+        "wires": [
+            [
+                "02ba1e4768f78088"
+            ]
+        ]
+    },
+    {
+        "id": "02ba1e4768f78088",
+        "type": "function",
+        "z": "2de1d8a11aa56cb9",
+        "name": "Check stilstand",
+        "func": "let last = flow.get(\"lastUpdate\") || 0;\nlet diff = (Date.now() - last) / 1000;\nif (diff > 10) {\n    return { payload: \"⚠️ Geen MQTT connectie, laatste connectie \" + Math.round(diff) + \" seconden geleden\" };\n} else {\n    return { payload: \"Status ontvangen ok\" };\n}",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 680,
+        "wires": [
+            [
+                "6d8ada959587784d"
+            ]
+        ]
+    },
+    {
+        "id": "eec6fbe79a2db0ec",
+        "type": "function",
+        "z": "2de1d8a11aa56cb9",
+        "name": "take out pct",
+        "func": "msg.payload = msg.payload.pct;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 260,
+        "wires": [
+            [
+                "e813235d40df877d"
+            ]
+        ]
+    },
+    {
+        "id": "9be37bd2f5112a54",
+        "type": "function",
+        "z": "2de1d8a11aa56cb9",
+        "name": "take out volt",
+        "func": "msg.payload = msg.payload.voltage;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 300,
+        "wires": [
+            [
+                "e37fa6a49c6673d0",
+                "8043b4c8c7dcd83d"
+            ]
+        ]
+    },
+    {
+        "id": "6d8ada959587784d",
+        "type": "ui_text",
+        "z": "2de1d8a11aa56cb9",
+        "group": "dashboard_grp",
+        "order": 39,
+        "width": 6,
+        "height": 2,
+        "name": "Connectie status",
+        "label": "Connectie status",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 830,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "6065457824fe3b3d",
+        "type": "ui_button",
+        "z": "2de1d8a11aa56cb9",
+        "name": "Start/Stop knop",
+        "group": "dashboard_grp",
+        "order": 2,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "Start / Stop",
+        "tooltip": "Simuleer knop op robot",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "fa-power-off",
+        "payload": "BUTTON",
+        "payloadType": "str",
+        "topic": "robot/remoteButton",
+        "topicType": "str",
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "257a8347fbd218f1"
+            ]
+        ]
+    },
+    {
+        "id": "257a8347fbd218f1",
+        "type": "mqtt out",
+        "z": "2de1d8a11aa56cb9",
+        "name": "MQTT naar robot",
+        "topic": "robot/remoteButton",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "aabbccddeeff0011",
+        "x": 630,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "8043b4c8c7dcd83d",
+        "type": "ui_text",
+        "z": "2de1d8a11aa56cb9",
+        "group": "dashboard_grp",
+        "order": 23,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "Spanning in V:",
+        "format": "{{value}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 820,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "25ec8f473a83dc9f",
+        "type": "mqtt in",
+        "z": "2de1d8a11aa56cb9",
+        "name": "Distance",
+        "topic": "robot/distance",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "aabbccddeeff0011",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 400,
+        "y": 460,
+        "wires": [
+            [
+                "e58fdb75e1a3755e"
+            ]
+        ]
+    },
+    {
+        "id": "e58fdb75e1a3755e",
+        "type": "function",
+        "z": "2de1d8a11aa56cb9",
+        "name": "distance value",
+        "func": "msg.payload = msg.payload.distance + \" \" + msg.payload.unit;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 460,
+        "wires": [
+            [
+                "722f5b9e9967da03"
+            ]
+        ]
+    },
+    {
+        "id": "722f5b9e9967da03",
+        "type": "ui_text",
+        "z": "2de1d8a11aa56cb9",
+        "group": "dashboard_grp",
+        "order": 26,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "Distance in cm:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 820,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "7ed191dafe9fed33",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 1,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "cf60e7f62708c89a",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 3,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "43df0529bda01053",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "f5f0f2c9972f4d2b",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 6,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "3947ba35ebd4a7ab",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 7,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "a20fd1254b38fb57",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 8,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "f926b2c64bbafa89",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 9,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "7dfc95794e4d36f2",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 10,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "06facecd9292c3b6",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 11,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "c5aa43fe0186a98c",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 12,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "f3c6c0dda6de5c60",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 13,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "16e552d9e0d2f31a",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 15,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "b35a5db45e3b21c3",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 16,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "4f3cfaffb7fcbaf0",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 17,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "ad938219668f7890",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 18,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "b0e8ba41819e69b6",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 19,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "8ce18635e8650290",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 20,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "96ab3dc98b16beb5",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 21,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "a708bfa0f1a3ccc5",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 22,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "747388fe7856b9b7",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 24,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "8e8b9cd187b9f5c2",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 25,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "b123dca0b57d9ee6",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 27,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "051022c49345ba77",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 28,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "e271412d25e4b076",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 30,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "f6f6fc4c4895f388",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 31,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "295695bed32004b8",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 32,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "b91324b30b9cca73",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 33,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "e8258bed9afaadcb",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 35,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "d9bc47e39b5b0167",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 36,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "41ed0af3dc5e50df",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 37,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "70dc92067609c6a2",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 38,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "d5fd453ced4f29d8",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 40,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "1986e572902fcf0b",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 41,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "c96fd640632cdde3",
+        "type": "ui_spacer",
+        "z": "2de1d8a11aa56cb9",
+        "name": "spacer",
+        "group": "dashboard_grp",
+        "order": 42,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "aabbccddeeff0011",
+        "type": "mqtt-broker",
+        "name": "MQTT-broker",
+        "broker": "192.168.1.54",
+        "port": "1883",
+        "clientid": "nodered_ui",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "dashboard_grp",
+        "type": "ui_group",
+        "name": "Robot Monitor",
+        "tab": "dashboard_tab",
+        "order": 1,
+        "disp": true,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "dashboard_tab",
+        "type": "ui_tab",
+        "name": "Dashboard",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
