@@ -64,7 +64,7 @@ Een autonome lijnvolgende robot die obstakels ontwijkt, communiceert via MQTT en
 - MQTT-verbindingsstatus
 
 > Screenshot beschikbaar in `/images/dashboard.png`  
-> Flowbestand voor import: `/images/flow.json`
+> Flowbestand voor import: `flow.json`
 
 ---
 
@@ -84,7 +84,7 @@ Een autonome lijnvolgende robot die obstakels ontwijkt, communiceert via MQTT en
    - Installeer Mosquitto & Node-RED.
    - Voeg dashboard nodes toe.
    - Start Node-RED (`http://<ip>:1880`).
-   - Importeer `flow.json` uit `/images`.
+   - Importeer `flow.json`.
 
 ---
 
