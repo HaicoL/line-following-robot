@@ -22,7 +22,7 @@ Een autonome lijnvolgende robot die obstakels ontwijkt, communiceert via MQTT en
 | `/videos/`     | Demonstratievideo’s van het eindresultaat                |
 | `/datasheets/` | Datasheets van gebruikte componenten                     |
 
-> 📄 Zie `Documentatie_eindwerk_HaicoJonathan.docx` voor volledige uitleg over hardware, software en opbouw.
+> 📄 Zie `Documentatie_eindwerk_HaicoJonathan.pdf` voor volledige uitleg over hardware, software en opbouw.
 
 ---
 
@@ -110,7 +110,7 @@ De volledige documentatie met:
 - Handleiding en foutenoplossing  
 vind je in het bestand:
 
-📘 `Documentatie_eindwerk_HaicoJonathan.docx`
+📘 `Documentatie_eindwerk_HaicoJonathan.pdf`
 
 ---
 
