@@ -5,6 +5,10 @@
 
 Een autonome lijnvolgende robot die obstakels ontwijkt, communiceert via MQTT en een dashboard gebruikt op een Raspberry Pi 5. De robot werkt met IR-sensoren, een ultrasoon sensor op een servomotor, en toont batterijstatus via LED’s en MQTT.
 
+[![Watch the video](https://img.youtube.com/vi/Gt0iAx7lIiI/maxresdefault.jpg)](https://youtu.be/Gt0iAx7lIiI)
+
+### [📺 Watch the full demo video without PCB here](https://youtu.be/Gt0iAx7lIiI)
+
 ---
 
 ## 📁 Mappenstructuur
