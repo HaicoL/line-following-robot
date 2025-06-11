@@ -9,6 +9,11 @@ Een autonome lijnvolgende robot die obstakels ontwijkt, communiceert via MQTT en
 
 ### [📺 Watch the full demo video without PCB here](https://youtu.be/Gt0iAx7lIiI)
 
+
+[![Watch the video](https://img.youtube.com/vi/uSUa7dT_G1U/maxresdefault.jpg)](https://youtu.be/uSUa7dT_G1U)
+
+### [📺 Watch the full demo video with PCB and Case here](https://youtu.be/uSUa7dT_G1U)
+
 ---
 
 ## 📁 Mappenstructuur
